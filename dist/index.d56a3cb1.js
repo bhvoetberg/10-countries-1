@@ -460,26 +460,47 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"5HwUs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+//Imports
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
-console.log('Hallo daar!');
+//Declarations
+let countryContainer = document.getElementById('countryContainer');
+//Main
+getCountries();
+//Functions
 async function getCountries() {
     try {
-        const result = await _axiosDefault.default.get('https://restcountries.com/v2/all');
-        // console.log(result.data[0].name);
-        // console.log(result.data[0].population);
-        // console.log(result.data[0].region);
-        // console.log(result.data);
-        const countriesContainer = document.getElementById('countries');
-        countriesContainer.textContent = result.data.value;
-        return result.data;
+        const apiSource = await _axiosDefault.default.get('https://restcountries.com/v2/all');
+        let sorted = sortOnPopulation(apiSource);
+        // console.log(apiSource.data[1].name);   !!!!!!!!!!
+        formatCountryInfo(sorted);
     } catch (e) {
         console.error(e);
     }
 }
-//
-let info = getCountries();
-console.log(info[0].name);
+function sortOnPopulation(input) {
+    const sorted = input.data.sort((a, b)=>{
+        return a.population - b.population;
+    });
+    // console.log(input.data[1].population);
+    console.log(sorted[3].population);
+    return input;
+}
+function formatCountryInfo(result) {
+    for(let i = 0; i < result.data.length; i++){
+        let countryElements = document.createElement('li');
+        let elementCountryName = document.createElement('div');
+        elementCountryName.textContent = result.data[i].name;
+        countryElements.appendChild(elementCountryName);
+        let elementCountryPopulation = document.createElement('div');
+        elementCountryPopulation.textContent = 'Has a population of ' + result.data[i].population + ' people.';
+        countryElements.appendChild(elementCountryPopulation);
+        const newLine = document.createElement('br');
+        countryContainer.appendChild(newLine);
+        countryContainer.appendChild(countryElements);
+    }
+    console.log(countryContainer);
+}
 
 },{"axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"1IeuP":[function(require,module,exports) {
 module.exports = require('./lib/axios');
