@@ -1,5 +1,4 @@
-//Imports
-import axios from "axios";
+import axios from 'axios';
 
 //Declarations
 let countryContainer = document.getElementById('countryContainer');
@@ -39,7 +38,7 @@ function formatCountryInfo(countries) {
         elementCountryFlag.height = 12;
         countryElements.appendChild(elementCountryFlag);
 
-        let elementCountryName = document.createElement('div');
+        let elementCountryName = document.createElement('span');
         elementCountryName.textContent = name;
         elementCountryName.style.color = getRegionColor(region);
         countryElements.appendChild(elementCountryName);

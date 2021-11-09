@@ -1,7 +1,10 @@
-.topic{
+body{
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+h1{
     font-family: Gayathri, sans-serif;
     font-size: x-large;
     font-weight: bold;
@@ -15,7 +18,7 @@
     margin-left: auto;
 }
 
-#countryContainer {
+#country-container {
     display: grid;
     grid-template-columns: repeat(3, minmax(150px , 1fr));
     grid-gap: 1rem;
@@ -29,4 +32,6 @@ ul {
     padding: 1rem;
     font-size: x-small;
 }
+
+
 

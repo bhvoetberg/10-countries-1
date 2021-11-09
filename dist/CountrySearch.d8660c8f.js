@@ -140,12 +140,12 @@
       this[globalName] = mainExports;
     }
   }
-})({"1Mq12":[function(require,module,exports) {
+})({"6F889":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "4a236f9275d0a351";
-module.bundle.HMR_BUNDLE_ID = "b5b6c481d56a3cb1";
+module.bundle.HMR_BUNDLE_ID = "4fc451bad8660c8f";
 "use strict";
 function _createForOfIteratorHelper(o, allowArrayLike) {
     var it;
@@ -458,69 +458,50 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"5HwUs":[function(require,module,exports) {
+},{}],"kaltw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+//Imports
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
-//Declarations
-let countryContainer = document.getElementById('countryContainer');
+// //Declarations
+let countryInfo = document.getElementById('country-search-container');
 //Main
-getCountries();
+getCountry();
 //Functions
-async function getCountries() {
+async function getCountry() {
     try {
-        const apiSource = await _axiosDefault.default.get('https://restcountries.com/v2/all');
-        formatCountryInfo(sortCountriesOnPopulation(apiSource));
+        const { data: country  } = await _axiosDefault.default.get('https://restcountries.com/v2/name/peru');
+        formatCountryInfo(country);
     } catch (e) {
         console.error(e);
     }
 }
-function sortCountriesOnPopulation(countries) {
-    return countries.data.sort((a, b)=>{
-        return a.population - b.population;
-    });
+function formatCountryInfo(country) {
+    let countryInfoElement = document.createElement('div');
+    let flagElement = document.createElement('img');
+    flagElement.src = country[0].flag;
+    flagElement.height = 12;
+    countryInfoElement.appendChild(flagElement);
+    let nameElement = document.createElement('span');
+    nameElement.textContent = ' ' + country[0].name;
+    countryInfoElement.appendChild(nameElement);
+    let infoElement = document.createElement('div');
+    infoElement.textContent = country[0].name + ' is situated in ' + country[0].subregion + '. It has a population of ' + new Intl.NumberFormat('nl-NL').format(country[0].population) + ' people.';
+    countryInfoElement.appendChild(infoElement);
+    countryInfo.appendChild(countryInfoElement);
+    //Netherlands is situated in Westen Europe. Is has a population of 123 people
+    console.log('naam ' + country[0].name);
+    console.log('vlag ' + country[0].flag);
+    console.log('regio ' + country[0].subregion);
+    console.log('pop ' + country[0].population);
+    console.log('cur ' + country[0].currencies[0].name);
+    console.log('taal ' + country[0].languages[0].name);
 }
-function formatCountryInfo(countries) {
-    for(let i = 0; i < countries.length; i++){
-        //Bonus 8.2
-        const { name , population , region  } = countries[i];
-        let countryElements = document.createElement('li');
-        let elementCountryFlag = document.createElement('img');
-        elementCountryFlag.src = countries[i].flags.png;
-        elementCountryFlag.height = 12;
-        countryElements.appendChild(elementCountryFlag);
-        let elementCountryName = document.createElement('span');
-        elementCountryName.textContent = name;
-        elementCountryName.style.color = getRegionColor(region);
-        countryElements.appendChild(elementCountryName);
-        let elementCountryPopulation = document.createElement('div');
-        elementCountryPopulation.textContent = 'Has a population of ' + new Intl.NumberFormat('nl-NL').format(population) + ' people.';
-        countryElements.appendChild(elementCountryPopulation);
-        countryContainer.appendChild(countryElements);
-    }
-}
-function getRegionColor(region) {
-    let color;
-    switch(region){
-        case "Africa":
-            color = "blue";
-            break;
-        case "Americas":
-            color = "green";
-            break;
-        case "Asia":
-            color = "red";
-            break;
-        case "Europe":
-            color = "yellow";
-            break;
-        case "Oceania":
-            color = "purple";
-            break;
-        default:
-            color = "orange";
-    }
-    return color;
+//Submit button is enter + submit
+function getInput(e) {
+    e.preventDefault();
+    const SearchInput = document.getElementById('search');
+    console.log(searchInput.value);
 }
 
 },{"axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"1IeuP":[function(require,module,exports) {
@@ -2111,6 +2092,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["1Mq12","5HwUs"], "5HwUs", "parcelRequirecb08")
+},{}]},["6F889","kaltw"], "kaltw", "parcelRequirecb08")
 
-//# sourceMappingURL=index.d56a3cb1.js.map
+//# sourceMappingURL=CountrySearch.d8660c8f.js.map
