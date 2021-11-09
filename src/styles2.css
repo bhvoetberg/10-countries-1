@@ -1,0 +1,33 @@
+:root {
+    --radius: 6px;
+}
+
+body{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    background-color: lightgrey;
+    font-family: Gayathri, sans-serif;
+}
+
+.special-font {
+    font-family: Dhurjati, Helvetica;
+    font-style: italic;
+    font-size: xx-large;
+}
+
+#country-container {
+    display: grid;
+
+    grid-template-columns: auto;
+    margin: auto;
+    text-align: left;
+    padding: 6px;
+}
+
+#searchCountry, #country-container, #searchButton {
+    border-radius: var(--radius);
+    border: 1px solid darkslategrey;
+    margin: 6px;
+}
+

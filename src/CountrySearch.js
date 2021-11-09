@@ -1,17 +1,26 @@
+//Notes
+// innerHTML zou wat eenvoudiger zijn in de functie formatCountryInfo, maar wilde toch de 'juiste' methode proberen :)
+
 //Imports
 import axios from 'axios';
 
-// //Declarations
-let countryInfo = document.getElementById('country-search-container');
-
-//Main
-getCountry();
-
+const searchForm = document.getElementById('searchForm');
+searchForm.addEventListener("submit", getInput);
 
 //Functions
-async function getCountry() {
+
+function getInput(e) {
+    e.preventDefault();
+    const searchCountry = document.getElementById('searchCountry');
+    getCountry(searchCountry.value);
+    searchForm.reset();
+}
+
+
+async function getCountry(input) {
     try {
-        const {data: country} = await axios.get('https://restcountries.com/v2/name/peru');
+        const url = 'https://restcountries.com/v2/name/' + input;
+        const {data: country} = await axios.get(url);
         formatCountryInfo(country);
     }
     catch(e) {
@@ -20,6 +29,12 @@ async function getCountry() {
 }
 
 function formatCountryInfo(country) {
+    let countryContainer = document.getElementById('country-container');
+
+    //Clear previous input. Including truthy!!
+    while(countryContainer.firstChild) {
+        countryContainer.removeChild(countryContainer.firstChild);
+    }
 
     let countryInfoElement = document.createElement('div');
 
@@ -30,35 +45,32 @@ function formatCountryInfo(country) {
 
     let nameElement = document.createElement('span');
     nameElement.textContent = ' ' + country[0].name;
+    nameElement.className = 'special-font';
     countryInfoElement.appendChild(nameElement);
 
-    let infoElement = document.createElement('div');
-    infoElement.textContent =
+    let line1 = document.createElement('p');
+    line1.textContent =
         country[0].name + ' is situated in ' + country[0].subregion +
         '. It has a population of ' +
         new Intl.NumberFormat('nl-NL').format(country[0].population) + ' people.';
-    countryInfoElement.appendChild(infoElement);
+    countryInfoElement.appendChild(line1);
 
-    countryInfo.appendChild(countryInfoElement);
+    let line2 = document.createElement('p');
+    console.log('LENGTE IS: ' + country[0].currencies.length);
+    console.log(country[0]);
+    if (country[0].currencies.length = 1) {
+        line2.textContent =
+            'The capital is ' + country[0].capital + ' and you can pay with ' + country[0].currencies[0].name + '.';}
+        else {
+        line2.textContent =
+            'The capital is ' + country[0].capital + ' and you can pay with ' + country[0].currencies[0].name +
+        ' and you can pay with ' + country[0].currencies[1].name +'.';}
+    countryInfoElement.appendChild(line2);
 
-    //Netherlands is situated in Westen Europe. Is has a population of 123 people
+    let line3 = document.createElement('p');
+    line3.textContent =
+        'They speak  ' + country[0].languages[0].name + '.';
+    countryInfoElement.appendChild(line3);
 
-
-    console.log('naam ' + country[0].name);
-    console.log('vlag ' + country[0].flag);
-    console.log('regio ' + country[0].subregion);
-    console.log('pop ' + country[0].population);
-    console.log('cur ' + country[0].currencies[0].name);
-    console.log('taal ' + country[0].languages[0].name);
-}
-
-
-
-//Submit button is enter + submit
-
-
-function getInput(e) {
-    e.preventDefault();
-    const SearchInput = document.getElementById('search');
-    console.log(searchInput.value);
+    countryContainer.appendChild(countryInfoElement);
 }

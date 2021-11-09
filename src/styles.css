@@ -2,6 +2,11 @@ body{
     display: flex;
     flex-direction: column;
     text-align: center;
+    background-color: grey;
+}
+
+.test {
+    font-size: x-small;
 }
 
 h1{

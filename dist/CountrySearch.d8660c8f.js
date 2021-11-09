@@ -460,23 +460,33 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"kaltw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+//Notes
+// innerHTML zou wat eenvoudiger zijn in de functie formatCountryInfo, maar wilde toch de 'juiste' methode proberen :)
 //Imports
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
-// //Declarations
-let countryInfo = document.getElementById('country-search-container');
-//Main
-getCountry();
+const searchForm = document.getElementById('searchForm');
+searchForm.addEventListener("submit", getInput);
 //Functions
-async function getCountry() {
+function getInput(e) {
+    e.preventDefault();
+    const searchCountry = document.getElementById('searchCountry');
+    getCountry(searchCountry.value);
+    searchForm.reset();
+}
+async function getCountry(input) {
     try {
-        const { data: country  } = await _axiosDefault.default.get('https://restcountries.com/v2/name/peru');
+        const url = 'https://restcountries.com/v2/name/' + input;
+        const { data: country  } = await _axiosDefault.default.get(url);
         formatCountryInfo(country);
     } catch (e) {
         console.error(e);
     }
 }
 function formatCountryInfo(country) {
+    let countryContainer = document.getElementById('country-container');
+    //Clear previous input. Including truthy!!
+    while(countryContainer.firstChild)countryContainer.removeChild(countryContainer.firstChild);
     let countryInfoElement = document.createElement('div');
     let flagElement = document.createElement('img');
     flagElement.src = country[0].flag;
@@ -484,24 +494,21 @@ function formatCountryInfo(country) {
     countryInfoElement.appendChild(flagElement);
     let nameElement = document.createElement('span');
     nameElement.textContent = ' ' + country[0].name;
+    nameElement.className = 'special-font';
     countryInfoElement.appendChild(nameElement);
-    let infoElement = document.createElement('div');
-    infoElement.textContent = country[0].name + ' is situated in ' + country[0].subregion + '. It has a population of ' + new Intl.NumberFormat('nl-NL').format(country[0].population) + ' people.';
-    countryInfoElement.appendChild(infoElement);
-    countryInfo.appendChild(countryInfoElement);
-    //Netherlands is situated in Westen Europe. Is has a population of 123 people
-    console.log('naam ' + country[0].name);
-    console.log('vlag ' + country[0].flag);
-    console.log('regio ' + country[0].subregion);
-    console.log('pop ' + country[0].population);
-    console.log('cur ' + country[0].currencies[0].name);
-    console.log('taal ' + country[0].languages[0].name);
-}
-//Submit button is enter + submit
-function getInput(e) {
-    e.preventDefault();
-    const SearchInput = document.getElementById('search');
-    console.log(searchInput.value);
+    let line1 = document.createElement('p');
+    line1.textContent = country[0].name + ' is situated in ' + country[0].subregion + '. It has a population of ' + new Intl.NumberFormat('nl-NL').format(country[0].population) + ' people.';
+    countryInfoElement.appendChild(line1);
+    let line2 = document.createElement('p');
+    console.log('LENGTE IS: ' + country[0].currencies.length);
+    console.log(country[0]);
+    country[0].currencies.length = 1;
+    line2.textContent = 'The capital is ' + country[0].capital + ' and you can pay with ' + country[0].currencies[0].name + '.';
+    countryInfoElement.appendChild(line2);
+    let line3 = document.createElement('p');
+    line3.textContent = 'They speak  ' + country[0].languages[0].name + '.';
+    countryInfoElement.appendChild(line3);
+    countryContainer.appendChild(countryInfoElement);
 }
 
 },{"axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"1IeuP":[function(require,module,exports) {

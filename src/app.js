@@ -11,6 +11,7 @@ async function getCountries() {
     try {
         const apiSource = await axios.get('https://restcountries.com/v2/all');
         formatCountryInfo(sortCountriesOnPopulation(apiSource));
+        console.log(apiSource);
         }
     catch(e) {
         console.error(e);

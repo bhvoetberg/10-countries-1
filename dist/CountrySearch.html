@@ -2,18 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/index.be5cf2f4.css">
+    <link rel="stylesheet" href="/CountrySearch.cfbe57b9.css">
     <title>Title</title>
 </head>
 <body>
-    <h1>Let's search some countries</h1>
+    <h1 class="special-font">Let's search some countries</h1>
 
-    <form id="search">
-        <label for="search"></label>
-        //  eventlistner in javascript is type submit
+    <form id="searchForm">
+        <label for="searchCountry"></label>
+        <input type="text" id="searchCountry">Welk land zoek je?
+        <label for="searchButton"></label>
+        <input type="submit" id="searchButton" name="Zoek">
     </form>
 
-    <div id="country-search-container"></div>
+    <br><br>
+
+    <div id="country-container"></div>
 
     <script src="/CountrySearch.d8660c8f.js" defer=""></script>
 </body>
