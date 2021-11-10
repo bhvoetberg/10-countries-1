@@ -515,12 +515,8 @@ function formatCountryInfo(country) {
 }
 function languages(country) {
     let totalLanguages = country[0].languages.length;
-    if (totalLanguages === 1) return 'They speak ' + country[0].languages[0].name + '.';
-    else if (totalLanguages === 2) return 'They speak ' + country[0].languages[0].name + ' and ' + country[0].languages[1].name + '.';
-    else {
-        let returnText = 'They speak ';
-        for(let i = 0; i < totalLanguages - 1; i++)returnText = returnText + country[0].languages[i].name + ', ';
-    }
+    totalLanguages = 1;
+    return 'They speak ' + country[0].languages[0].name + '.';
 }
 
 },{"axios":"1IeuP","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"1IeuP":[function(require,module,exports) {
