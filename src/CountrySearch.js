@@ -1,21 +1,22 @@
 //Notes
-// innerHTML zou wat eenvoudiger zijn in de functie formatCountryInfo, maar wilde toch de 'juiste' methode proberen :)
+// innerHTML in het script  wat eenvoudiger zijn, maar wilde toch de 'juiste' methode proberen :)
 
 //Imports
 import axios from 'axios';
 
-const searchForm = document.getElementById('searchForm');
+//Main
+const searchForm = document.getElementById('search-form');
 searchForm.addEventListener("submit", getInput);
 
 //Functions
 
 function getInput(e) {
     e.preventDefault();
-    const searchCountry = document.getElementById('searchCountry');
+    const searchCountry = document.getElementById('search-country');
     getCountry(searchCountry.value);
+    //Empty input from form
     searchForm.reset();
 }
-
 
 async function getCountry(input) {
     try {
@@ -25,22 +26,24 @@ async function getCountry(input) {
     }
     catch(e) {
         console.error(e);
+        document.getElementById('country-container').innerHTML = "This country does not exist, please try again."
     }
 }
 
 function formatCountryInfo(country) {
     let countryContainer = document.getElementById('country-container');
 
-    //Clear previous input. Including truthy!!
+    //Clear previous input. This includes a truthy :)
     while(countryContainer.firstChild) {
         countryContainer.removeChild(countryContainer.firstChild);
     }
 
+    //Element to store and format all country info
     let countryInfoElement = document.createElement('div');
 
     let flagElement = document.createElement('img');
     flagElement.src = country[0].flag
-    flagElement.height = 12;
+    flagElement.height = 24;
     countryInfoElement.appendChild(flagElement);
 
     let nameElement = document.createElement('span');
@@ -56,8 +59,6 @@ function formatCountryInfo(country) {
     countryInfoElement.appendChild(line1);
 
     let line2 = document.createElement('p');
-    console.log('LENGTE IS: ' + country[0].currencies.length);
-    console.log(country[0]);
     if (country[0].currencies.length = 1) {
         line2.textContent =
             'The capital is ' + country[0].capital + ' and you can pay with ' + country[0].currencies[0].name + '.';}
@@ -68,9 +69,25 @@ function formatCountryInfo(country) {
     countryInfoElement.appendChild(line2);
 
     let line3 = document.createElement('p');
-    line3.textContent =
-        'They speak  ' + country[0].languages[0].name + '.';
+    line3.textContent = languages(country);
     countryInfoElement.appendChild(line3);
 
+    //Promote info to the container on the webpage
     countryContainer.appendChild(countryInfoElement);
+}
+
+function languages (country) {
+    let totalLanguages = country[0].languages.length;
+
+    if (totalLanguages = 1) {
+        return 'They speak ' + country[0].languages[0].name + '.';
+    } else if (totalLanguages = 2) {
+        return 'They speak ' + country[0].languages[0].name + ' and ' +
+            country[0].languages[1].name + '.';
+    } else {
+        let returnText = 'They speak ';
+        for (let i = 0; i < totalLanguages - 1; i++) {
+            returnText = returnText + country[0].languages[i].name + ', ';
+        }
+    }
 }

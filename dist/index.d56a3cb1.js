@@ -463,7 +463,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 //Declarations
-let countryContainer = document.getElementById('countryContainer');
+let countryContainer = document.getElementById('country-container');
 //Main
 getCountries();
 //Functions

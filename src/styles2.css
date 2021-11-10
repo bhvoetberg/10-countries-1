@@ -1,33 +1,46 @@
 :root {
     --radius: 6px;
+    --padding: 12px;
+    --margin: 6px;
 }
 
 body{
     display: flex;
     text-align: center;
     flex-direction: column;
-    background-color: lightgrey;
     font-family: Gayathri, sans-serif;
 }
 
-.special-font {
-    font-family: Dhurjati, Helvetica;
+h1 {
+    font-family: Dhurjati, sans-serif;
     font-style: italic;
     font-size: xx-large;
 }
 
 #country-container {
     display: grid;
-
-    grid-template-columns: auto;
-    margin: auto;
+    grid-template-columns: 1fr;
+    place-items: center;
+    margin-left: 250px;
+    margin-right: 250px;
+    margin-top: 12px;
     text-align: left;
-    padding: 6px;
+    padding: var(--padding);
+    background-color: lightgrey;
+    box-shadow: 10px 5px 5px darkslategrey;
 }
 
-#searchCountry, #country-container, #searchButton {
+#country-container:empty {
+    display: none;
+}
+
+#search-country, #country-container, #search-button {
     border-radius: var(--radius);
     border: 1px solid darkslategrey;
-    margin: 6px;
 }
+
+#search-country, #search-button {
+    margin: var(--margin);
+}
+
 

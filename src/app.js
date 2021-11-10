@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //Declarations
-let countryContainer = document.getElementById('countryContainer');
+let countryContainer = document.getElementById('country-container');
 
 //Main
 getCountries();

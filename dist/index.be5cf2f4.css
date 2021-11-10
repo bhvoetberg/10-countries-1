@@ -2,11 +2,6 @@ body{
     display: flex;
     flex-direction: column;
     text-align: center;
-    background-color: grey;
-}
-
-.test {
-    font-size: x-small;
 }
 
 h1{
@@ -17,7 +12,7 @@ h1{
 }
 
 .world-image {
-    max-width: 80%;
+    max-width: 70%;
     height: auto;
     margin-right: auto;
     margin-left: auto;
@@ -25,8 +20,10 @@ h1{
 
 #country-container {
     display: grid;
-    grid-template-columns: repeat(3, minmax(150px , 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px , 3fr));
     grid-gap: 1rem;
+    place-items: start;
+    text-align: left;
 }
 
 ul {
