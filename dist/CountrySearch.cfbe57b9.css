@@ -1,0 +1,48 @@
+:root {
+    --radius: 6px;
+    --padding: 12px;
+    --margin: 6px;
+}
+
+body{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    font-family: Gayathri, sans-serif;
+}
+
+h1 {
+    font-family: Dhurjati, sans-serif;
+    font-style: italic;
+    font-size: xx-large;
+}
+
+#country-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    margin-left: 250px;
+    margin-right: 250px;
+    margin-top: 12px;
+    text-align: left;
+    padding: var(--padding);
+    background-color: lightgrey;
+    box-shadow: 10px 5px 5px darkslategrey;
+}
+
+#country-container:empty {
+    display: none;
+}
+
+#search-country, #country-container, #search-button {
+    border-radius: var(--radius);
+    border: 1px solid darkslategrey;
+}
+
+#search-country, #search-button {
+    margin: var(--margin);
+}
+
+
+
+/*# sourceMappingURL=CountrySearch.cfbe57b9.css.map */
